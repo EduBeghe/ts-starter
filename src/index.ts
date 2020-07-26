@@ -1,1 +1,15 @@
-console.log(`up and running`);
+import config from './config';
+import logger from './loaders/logger';
+import express from './loaders/express';
+
+async function startServer() {
+  await express;
+
+  express
+    .listen(config.port, () => {
+      logger.info(`Server is up and ready!`);
+    })
+    .on(`error`, () => logger.error(`Error creating server.`));
+}
+
+startServer();

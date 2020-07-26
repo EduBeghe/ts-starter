@@ -26,7 +26,8 @@
     "inlineSourceMap": false,
     "noEmit": false,
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src", "test"]
 }
