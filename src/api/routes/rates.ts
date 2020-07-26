@@ -27,10 +27,8 @@ export default (app: Router) => {
           res.status(200);
           const body = new EmailBody(from, to, message);
           emailService.sendEmail(email, body);
-          res.send({
-              [from]: 1,
-              [to]: converted,
-            }).end();
+          logger.info(`Converted from:` + from + ` -> to:` + to + `. Conversion rate 1:` + converted);
+          res.end();
         } else {
           res.status(200);
           res.send({
