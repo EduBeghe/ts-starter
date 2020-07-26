@@ -1,4 +1,4 @@
-const express = require(`express`);
+import express = require('express');
 import { Request, Response, NextFunction } from 'express';
 import { ResponseError } from '../types';
 import routes from '../api';

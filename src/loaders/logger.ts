@@ -1,4 +1,4 @@
-const winston = require(`winston`);
+import * as winston from 'winston';
 
 const logformat = winston.format.combine(winston.format.timestamp(), winston.format.prettyPrint());
 

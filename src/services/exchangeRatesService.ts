@@ -2,9 +2,8 @@ import { Service } from 'typedi';
 import logger from '../loaders/logger';
 import { RatesError } from '../types/ratesResponse';
 import config from '../config';
-import { ClientRequest } from 'http';
 import { RatesResponse } from '../types';
-const https = require(`https`);
+import * as https from 'https';
 
 @Service()
 export default class RatesService {
@@ -15,7 +14,7 @@ export default class RatesService {
   public async getRates(base: string): Promise<RatesResponse> {
     return new Promise((resolve, reject) => {
       const url = this.basepath + config.openExchangeId + `&base=` + base;
-      https.get(url, (response: ClientRequest) => {
+      https.get(url, (response) => {
         response.on(`error`, (err: RatesError) => {
           logger.error(`Error retrieving Rates.`);
           reject(err);

@@ -6,7 +6,7 @@ import logger from '../../loaders/logger';
 import { RatesResponse, EmailBody } from '../../types';
 import EmailService from '../../services/emailService';
 const route = Router();
-const _ = require(`lodash`);
+import { get } from 'lodash';
 
 export default (app: Router) => {
   app.use(`/rates`, route);
@@ -22,7 +22,7 @@ export default (app: Router) => {
       .then((result: RatesResponse) => {
         const message = `Rates successfully retrieved!`;
         logger.info(message);
-        const converted = _.get(result.rates, to);
+        const converted = get(result.rates, to);
         if (converted) {
           res.status(200);
           const body = new EmailBody(from, to, message);
@@ -31,13 +31,16 @@ export default (app: Router) => {
           res.end();
         } else {
           res.status(200);
-          res.send({
+          res
+            .send({
               message: `Conversion format ` + to + ` not recognized.`,
-              description: `Please try another conversion format.`
-            }).end();
+              description: `Please try another conversion format.`,
+            })
+            .end();
         }
       })
       .catch((err: RatesError) => {
+        console.log(err);
         logger.error(`Error code:` + err.status + ` ,message:` + err.message);
         res.status(err.status || 500);
         res
